@@ -27,6 +27,71 @@ h1 {
   font-size: 0.9rem;
 }
 
+.auth-token {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem 0.75rem;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.auth-token input {
+  flex: 1;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  font-size: 0.9rem;
+  font-family: "SF Mono", "Fira Code", monospace;
+}
+
+.auth-btn {
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.auth-btn.connect {
+  background: #4a90d9;
+  color: white;
+}
+
+.auth-btn.connect:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.auth-btn.disconnect {
+  background: #e55;
+  color: white;
+}
+
+.auth-status {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.auth-status.connected {
+  color: #3a3;
+}
+
+.auth-hint {
+  color: #999;
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.auth-hint code {
+  background: #eee;
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+  font-size: 0.8rem;
+}
+
 .add-todo {
   display: flex;
   gap: 0.5rem;

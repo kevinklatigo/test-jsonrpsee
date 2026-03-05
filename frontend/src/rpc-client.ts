@@ -1,6 +1,15 @@
 const RPC_URL = import.meta.env.VITE_RPC_URL ?? "http://localhost:3000";
 
 let nextId = 1;
+let authToken: string | null = null;
+
+export function setAuthToken(token: string | null) {
+  authToken = token;
+}
+
+export function getAuthToken(): string | null {
+  return authToken;
+}
 
 export interface Todo {
   id: number;
@@ -35,9 +44,16 @@ export async function rpcCall<M extends RpcMethod>(
     id,
   };
 
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+  };
+  if (authToken) {
+    headers["Authorization"] = `Bearer ${authToken}`;
+  }
+
   const res = await fetch(RPC_URL, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers,
     body: JSON.stringify(request),
   });
 

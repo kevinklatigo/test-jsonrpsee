@@ -53,5 +53,5 @@ export function useTodos() {
     await fetchTodos();
   }, [fetchTodos]);
 
-  return { todos, loading, error, addTodo, toggleTodo, removeTodo, clearCompleted };
+  return { todos, loading, error, addTodo, toggleTodo, removeTodo, clearCompleted, refresh: fetchTodos };
 }

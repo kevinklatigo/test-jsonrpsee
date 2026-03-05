@@ -2,19 +2,26 @@ import { useEffect, useState } from "react";
 import { useTodos } from "./hooks/useTodos";
 import { AddTodo } from "./components/AddTodo";
 import { TodoList } from "./components/TodoList";
-import { onRpcLog, type RpcLog } from "./rpc-client";
+import { AuthToken } from "./components/AuthToken";
+import { getAuthToken, onRpcLog, type RpcLog } from "./rpc-client";
 import "./App.css";
 
 function App() {
-  const { todos, loading, error, addTodo, toggleTodo, removeTodo, clearCompleted } =
+  const { todos, loading, error, addTodo, toggleTodo, removeTodo, clearCompleted, refresh } =
     useTodos();
   const [logs, setLogs] = useState<RpcLog[]>([]);
+  const [authenticated, setAuthenticated] = useState(!!getAuthToken());
 
   useEffect(() => {
     onRpcLog((log) => {
       setLogs((prev) => [...prev.slice(-19), log]);
     });
   }, []);
+
+  const handleAuthChanged = () => {
+    setAuthenticated(!!getAuthToken());
+    refresh();
+  };
 
   const completedCount = todos.filter((t) => t.done).length;
 
@@ -24,6 +31,14 @@ function App() {
       <p className="subtitle">
         React + Rust (jsonrpsee) over JSON-RPC 2.0
       </p>
+
+      <AuthToken onChanged={handleAuthChanged} />
+
+      {!authenticated && (
+        <p className="auth-hint">
+          Enter token <code>super-secret-token</code> to authenticate
+        </p>
+      )}
 
       <AddTodo onAdd={addTodo} />
 
